@@ -1,10 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import * as paginate from 'mongoose-paginate-v2';
-import { ICompany, IAddress, CompanyType } from './company.interface';
+import { IAddress, CompanyType } from './company.interface';
 
 @Schema()
-export class Company implements ICompany {
+export class Company {
   @Prop({ required: true })
   name: string;
 

@@ -1,21 +1,11 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { CompanyService } from './company.service';
-import { ICompany, ICompanyPaginate } from './company.interface';
-import { CompanyCreateUpdateDTO } from './dto/company-create-update.dto';
+import { ICompany } from './company.interface';
+import { BaseController } from 'src/shared/base.controller';
 
-@Controller()
-export class CompanyController {
-  constructor(private readonly companyService: CompanyService) {}
-
-  @Get('/companies')
-  getAll(): Promise<ICompanyPaginate> {
-    return this.companyService.findAll();
-  }
-
-  @Post('/companies')
-  create(@Body() companyCreateDto: CompanyCreateUpdateDTO): Promise<ICompany> {
-    console.log(companyCreateDto);
-
-    return this.companyService.create(companyCreateDto);
+@Controller('/companies')
+export class CompanyController extends BaseController<ICompany> {
+  constructor(protected readonly companyService: CompanyService) {
+    super(companyService);
   }
 }

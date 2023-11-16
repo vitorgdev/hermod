@@ -1,26 +1,15 @@
-import { PaginateModel } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Company } from './company.schema';
-import { CompanyCreateUpdateDTO } from './dto/company-create-update.dto';
-import { ICompany, ICompanyPaginate } from './company.interface';
+import { BaseService } from '../../shared/base.service';
+import { ICompany } from './company.interface';
+import { PaginateModel } from 'mongoose';
 
 @Injectable()
-export class CompanyService {
+export class CompanyService extends BaseService<ICompany> {
   constructor(
-    @InjectModel(Company.name) private companyModel: PaginateModel<ICompany>,
-  ) {}
-
-  async create(companyCreateDTO: CompanyCreateUpdateDTO): Promise<ICompany> {
-    const createdCompany = new this.companyModel(companyCreateDTO);
-    return createdCompany.save();
-  }
-
-  async findAll(): Promise<ICompanyPaginate> {
-    const companies = await this.companyModel.paginate(
-      {},
-      { page: 1, limit: 10 },
-    );
-    return companies;
+    @InjectModel(Company.name) companyModel: PaginateModel<ICompany>,
+  ) {
+    super(companyModel);
   }
 }
