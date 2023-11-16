@@ -1,4 +1,4 @@
-import { Document, PaginateResult } from 'mongoose';
+import { PaginateResult } from 'mongoose';
 
 export enum CompanyType {
   Clinic = 'Clinic',
@@ -19,8 +19,7 @@ export interface IAddress {
   longitude: number;
 }
 
-export interface ICompany extends Document {
-  _id: string;
+export interface ICompany {
   name: string;
   address: IAddress;
   phoneNumber: string;
